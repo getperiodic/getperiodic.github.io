@@ -1137,18 +1137,24 @@ var sizeAndPositionVideo = function () {
 	}
 };
 
+var isMobile = function () {
+	return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+};
+
 document.addEventListener("DOMContentLoaded", function (e) {
+	// console.log("isMobile", isMobile());
 	var swipe = require('swipe');
 	swipeel = document.querySelector('#container');
-	vid = document.querySelector('#indexvideo');
-	// alert("video error", vid.readyState);
-	//loop video
+	vid = (isMobile === true) ? document.querySelector('#indexnovideo') : document.querySelector('#indexvideo');
+	if (isMobile === true) {
+		document.querySelector('#indexvideo').style.display = "none";
+	}
 	vid.addEventListener('ended', restartVideo, false);
 	sizeAndPositionVideo();
 	window.vid = vid;
 	window.myswipe = swipe(swipeel);
 	window.myswipe.on("showing", function (e) {
-		console.log("e", e);
+		// console.log("e", e);
 	});
 });
 
