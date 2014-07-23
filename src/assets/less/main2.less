@@ -1,0 +1,213 @@
+*, *:after, *:before { 
+	-webkit-box-sizing: border-box; 
+	-moz-box-sizing: border-box; 
+	box-sizing: border-box; 
+}
+
+@font-face {
+	font-family: 'Open Sans';
+	src: url('../font/opensans/opensans-regular-webfont.eot');
+	src: url('../font/opensans/opensans-regular-webfont.eot?#iefix') format('embedded-opentype'),
+	     url('../font/opensans/opensans-regular-webfont.woff') format('woff'),
+	     url('../font/opensans/opensans-regular-webfont.ttf') format('truetype'),
+	     url('../font/opensans/opensans-regular-webfont.svg#open_sansregular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body, html { 
+	font-size: 100%;
+	font-family: Open Sans, Lato, Calibri, Arial, sans-serif;
+	padding: 0; 
+	margin: 0;
+	// background:#efefef; 
+	position: relative;
+	width: 100%;
+	height: 100%;
+} 
+
+/* Clearfix hack by Nicolas Gallagher: http://nicolasgallagher.com/micro-clearfix-hack/
+*/ 
+.clearfix:before, .clearfix:after { 
+	content: " "; display: table; 
+} 
+.clearfix:after { 
+	clear: both; 
+} 
+body{ 
+	overflow-x:hidden;
+}
+
+.container {
+	position: relative;
+	width: 100%;
+	height: 100%;
+  perspective: 30em;
+	.pane{
+		width:50%;
+		height: 100%;
+		position: fixed;
+		z-index:100;
+		background: #fff;
+		transition: left 0.6s, right 0.6s, width 0.6s;
+		-webkit-backface-visibility: hidden;
+		.nav-arrow{
+			text-align: center;
+			font-size: 5em;
+			position: relative;
+			top: -3em;
+			opacity: 0;
+			transition: opacity .5s linear .5s;
+			a{
+				text-decoration: none;
+				color:#000;
+			}	
+		}
+		&.pane-left{
+			background:#ffffff;
+			left:0;
+		}
+		&.pane-right{
+			background:#efefef;
+			right:0;
+		}
+		.pane-content{
+			position: absolute;
+			text-align: center;
+			cursor: pointer;
+			width:60%;
+			top:50%;
+			left:50%;
+			transform: translateY(-50%) translateX(-50%);
+			transition: transform 0.6s ease-in, top 0.6s ease-in;
+			text-transform: uppercase;
+			img{
+				width:60%;
+			}
+			p.enduser{
+				opacity: 1;
+				transition: opacity 0.3s;
+			}
+			p.download a{
+				text-decoration: none;
+				transition: opacity 0.3s linear 0.6s;
+				opacity: 0;			
+				color: #000;
+				font-weight: bold;
+				border-bottom: 0.1em dotted #000;
+				font-size: 1em;
+			}
+		}
+	}
+	.page{
+		height: 100%;
+		position: absolute;
+		width:75%;
+		transition: left 0.5s , right 0.5s ;
+	  backface-visibility: hidden;
+		-webkit-backface-visibility: hidden;
+		overflow: auto;
+		overflow-x: hidden;
+		// display: none;
+		&.page-left{
+			background:#efefef;
+			left:-75%;
+		}
+		&.page-right{
+			background:#ffffff;
+			right:-75%;
+		}
+		.page-inner{
+			padding:1em;
+			line-height:1.75em;
+			a{
+				text-decoration: none;
+				color: #3966A2;
+				font-weight: bold;
+				/* border-bottom: 1px solid black; */
+				font-size: 121%;
+			}
+		}
+	}
+	&.show-left-page,
+	&.show-right-page{	
+		.pane{
+			.nav-arrow{
+				top: 0em;
+				opacity: 1;
+			}	
+			.pane-content{
+				p.enduser{
+					opacity: 0;
+				}
+				p.download a{
+					opacity: 1;
+				}
+			}
+		}
+	}
+	&.show-left-page{
+		.pane{
+			width:25%;	
+			&.pane-left{
+				left:75%;
+				z-index: 300;
+			}
+			&.pane-right{
+				right:-25%;
+				z-index: 200;
+			}			
+		}
+		.page{
+			&.page-left{
+				display: block;
+				left:0%;
+			}
+			&.page-right{
+				display: none;
+				right:-75%;
+			}
+		}
+	}
+	&.show-right-page{
+		.pane{
+			width:25%;	
+			&.pane-left{
+				left:-25%;
+				z-index: 200;
+			}
+			&.pane-right{
+				right:75%;
+				z-index: 300;
+			}			
+		}
+		.page{
+			&.page-left{
+				display: none;
+				left:-75%;
+			}
+			&.page-right{
+				display: block;
+				right:0%;
+			}
+		}
+	}
+}
+@media screen and (max-width: 21em) {
+	.container{
+		&.show-right-page,
+		&.show-left-page{
+			.pane{
+				.nav-arrow{
+					font-size: 2em;
+				}
+				img{
+					width:120%;
+				}
+				// .pane-content{
+				// 	transform: translateY(-25%) translateX(-50%);
+				// }
+			}
+		}
+	}
+}
