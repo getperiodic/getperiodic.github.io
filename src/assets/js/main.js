@@ -1111,6 +1111,7 @@ for (var transition in map) {
 "use strict";
 var classie = require("classie"),
 	swipeel,
+	t,
 	vid;
 
 var restartVideo = function () {
@@ -1118,8 +1119,24 @@ var restartVideo = function () {
 	vid.play();
 };
 
-var sizeAndPositionVideo = function () {
+var isMobile = function () {
+	return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+};
 
+var lazyloadPanes = function () {
+	var panes = document.querySelectorAll(".pane.lazyload");
+	for (var x in panes) {
+		if (typeof panes[x] === "object") {
+			classie.removeClass(panes[x], "lazyload");
+		}
+	}
+};
+
+var lazyloadVid = function () {
+	classie.removeClass(vid, "lazyload");
+};
+
+var sizeAndPositionVideo = function () {
 	if (vid.clientWidth > window.innerWidth || vid.clientHeight < window.innerHeight) {
 		if (vid.clientWidth > window.innerWidth) {
 			var offsetMarginLeft = (vid.clientWidth - window.innerWidth) / 2 * -1;
@@ -1135,33 +1152,45 @@ var sizeAndPositionVideo = function () {
 		// var offsetMarginTop = (vid.clientHeight - window.innerHeight) / 2 * -1;
 		// vid.style.top = offsetMarginTop + 'px';
 	}
-};
-
-var isMobile = function () {
-	return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+	if (classie.hasClass(vid, "lazyload")) {
+		lazyloadVid();
+	}
 };
 
 document.addEventListener("DOMContentLoaded", function (e) {
-	// console.log("isMobile", isMobile());
 	var swipe = require('swipe');
 	swipeel = document.querySelector('#container');
-	vid = (isMobile === true) ? document.querySelector('#indexnovideo') : document.querySelector('#indexvideo');
-	if (isMobile === true) {
-		document.querySelector('#indexvideo').style.display = "none";
+	vid = (isMobile()) ? document.querySelector('#indexnovideo') : document.querySelector('#indexvideo');
+	if (isMobile()) {
+		document.querySelector('#indexvideo').parentElement.removeChild(document.querySelector('#indexvideo'));
+	}
+	else {
+		document.querySelector('#indexnovideo').parentElement.removeChild(document.querySelector('#indexnovideo'));
 	}
 	vid.addEventListener('ended', restartVideo, false);
-	sizeAndPositionVideo();
+	vid.addEventListener("load", sizeAndPositionVideo);
+	vid.addEventListener("loadeddata", sizeAndPositionVideo);
+	document.querySelector('#goto-next-page').addEventListener("click", function () {
+		window.myswipe.cycle();
+	});
 	window.vid = vid;
 	window.myswipe = swipe(swipeel);
 	window.myswipe.on("showing", function (e) {
-		// console.log("e", e);
+		clearTimeout(t);
 	});
+	// sizeAndPositionVideo();
+	lazyloadPanes();
+	t = setTimeout(function () {
+		if (window.myswipe.current === 0) {
+			window.myswipe.show(1);
+		}
+	}, 10000);
 });
 
 window.addEventListener("resize", function (e) {
 	window.myswipe.refresh();
 	sizeAndPositionVideo();
 });
-window.myswipe = null;
+// window.myswipe = null;
 
 },{"classie":1,"swipe":3}]},{},[13]);

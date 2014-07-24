@@ -84,8 +84,9 @@ nav{
 	top:0;
 	width: 100%;
 	height:2em;
-	background: rgba(0,0,0,0.7);
+	background: #000;
 	z-index: 2000;
+	font-family: source_sans_proextralight, Open Sans,Arial, sans-serif;
 	ul{
 		width:40%;
 		list-style: none;
@@ -106,6 +107,9 @@ nav{
 				color: #fff;
 				text-decoration: none;
 			}
+		}
+		.collapse-button{
+			display: none;
 		}
 	}
 }
@@ -146,9 +150,12 @@ nav{
 		overflow-x: hidden;
 		-webkit-overflow-scrolling: touch;
 		position: relative;
+		opacity: 1;
+		transition: opacity 0.6s linear 0.2s;
 		&#pane1{
 			overflow: hidden;
 			padding:0;
+			background: #000;
 		}
 		#title-card{
 			position: absolute;
@@ -174,8 +181,35 @@ nav{
 			h2{
 				font-weight: normal;
 			}
+			#goto-next-page{
+				padding: .8em 3.5em;
+				background: rgba(0,0,0,.8);
+				top: .4em;
+				position: relative;
+				text-transform: uppercase;
+				cursor: pointer;
+				&:hover:before {
+					left: 75%;
+				}
+				&:before {
+					left: 85%;
+					top: 0;
+					content: "\2192";
+				}
+				&:before {
+					position: absolute;
+					height: 100%;
+					font-size: 125%;
+					line-height: 2.5em;
+					color: #fff;
+					-webkit-transition: all 0.3s;
+					-moz-transition: all 0.3s;
+					transition: all 0.3s;
+				}
+			}
 		}
 		#indexvideo,#indexnovideo{
+			transition: opacity 2s linear 0.1s;
 			z-index: -1000;
 			height: 100%;
 			width: auto;
@@ -183,9 +217,44 @@ nav{
 			-moz-filter: grayscale(100%) contrast(150%) brightness(40%);
 			-ms-filter: grayscale(100%) contrast(150%) brightness(40%);
 			filter: grayscale(100%) contrast(150%) brightness(40%);
+			opacity: 1;
+			&.lazyload{
+				opacity: 0;
+			}
 		}
 		#indexnovideo{
-			z-index: -1500;
+			z-index: -900;
+		}
+		&.lazyload{
+			opacity: 0;
+		}
+		&#pane2{
+			h3{
+				text-transform: uppercase;
+				margin: 0;
+				font-size: 2em;
+			}
+			ul{
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				li{
+					display: block;
+					float: left;
+					width: 50%;
+					text-align: center;
+					margin: 5em 0;
+					p{
+						text-align: justify;
+						width: 70%;
+						margin: auto;
+						font-size: 90%;
+					}
+					img{
+						width: 33%;
+					}
+				}
+			}
 		}
 	}
 
@@ -195,6 +264,45 @@ nav{
 }
 
 @media screen and (max-width: 21em) {
+	nav{
+		ul{
+			&.logo{
+				img{
+				}
+			}
+			li{
+				a{
+				}
+			}
+			.collapse-button{
+				display: inline-block;
+			}
+			.collapse-container{
+				display: none;
+				position: absolute;
+			}
+			&.pull-right.text-right:hover,
+			&.pull-right.text-right.touched{
+				.collapse-container{
+					display: block;
+					width: 100%;
+					left: 0;
+					background: rgba(239,239,239,0.85);
+					height: 100%;
+					position: fixed;
+					text-align: center;
+					font-size: 3em;
+					
+					li{
+						display: block;
+						a{
+							color: #000;
+						}
+					}
+				}
+			}
+		}
+	}
 	#container {
 	}
 	.panes {
@@ -204,12 +312,12 @@ nav{
 			#title-card{
 				// font-size: 40%;
 				h1{
-					padding-top: 20%;
+					padding-top: 15%;
 					margin-bottom: .5em;
-					font-size:4em;
+					font-size:3.8em;
 				}
 				h2{
-					font-size:2em;
+					font-size:1.5em;
 				}
 			}
 			#indexvideo{
