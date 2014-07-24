@@ -4,6 +4,7 @@
   "description": "getperiodic.com",
   "main": "index.js",
   "dependencies": {
+    "Mousetrap": "git+https://github.com/yawetse/mousetrap.git",
     "classie": "^0.1.0",
     "ejs": "^1.0.0",
     "grunt": "^0.4.5",

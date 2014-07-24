@@ -104,7 +104,12 @@ var setNextButtonListners = function () {
 };
 
 document.addEventListener("DOMContentLoaded", function (e) {
-	var swipe = require('swipe');
+	var swipe = require('swipe'),
+		Mousetrap = require("Mousetrap");
+	// keybinding = new Mousetrap();
+	console.log("Mousetrap", Mousetrap);
+	console.log("window.Mousetrap", window.Mousetrap);
+
 	swipeel = document.querySelector('#container');
 	vid = (isMobile()) ? document.querySelector('#indexnovideo') : document.querySelector('#indexvideo');
 	if (isMobile()) {
@@ -116,6 +121,12 @@ document.addEventListener("DOMContentLoaded", function (e) {
 	vid.addEventListener('ended', restartVideo, false);
 	vid.addEventListener("load", sizeAndPositionVideo);
 	vid.addEventListener("loadeddata", sizeAndPositionVideo);
+	Mousetrap.bind('right', function () {
+		window.myswipe.next();
+	});
+	Mousetrap.bind('left', function () {
+		window.myswipe.prev();
+	});
 	setNextButtonListners();
 	setSectionListeners();
 	window.vid = vid;
