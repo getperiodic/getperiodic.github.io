@@ -1112,6 +1112,7 @@ for (var transition in map) {
 var classie = require("classie"),
 	swipeel,
 	t,
+	flippedPanels = false,
 	vid;
 
 var restartVideo = function () {
@@ -1134,6 +1135,23 @@ var lazyloadPanes = function () {
 
 var lazyloadVid = function () {
 	classie.removeClass(vid, "lazyload");
+};
+
+var flipPanels = function (argument) {
+	var panels = document.querySelectorAll("#pane2 .panel"),
+		numpanels = panels.length,
+		i = 0,
+		interval;
+	flippedPanels = true;
+	interval = setInterval(function () {
+		if (i < numpanels) {
+			classie.removeClass(panels[i], "flip");
+		}
+		else {
+			clearInterval(interval);
+		}
+		i++;
+	}, 800);
 };
 
 var sizeAndPositionVideo = function () {
@@ -1177,6 +1195,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
 	window.myswipe = swipe(swipeel);
 	window.myswipe.on("showing", function (e) {
 		clearTimeout(t);
+		if (e === 1 && flippedPanels === false) {
+			flipPanels();
+		}
 	});
 	// sizeAndPositionVideo();
 	lazyloadPanes();
