@@ -1175,6 +1175,19 @@ var sizeAndPositionVideo = function () {
 	}
 };
 
+var setNextButtonListners = function () {
+	var nextButtons = document.querySelectorAll('.goto-next-page'),
+		nextButtonClick = function () {
+			window.myswipe.cycle();
+		};
+
+	for (var z in nextButtons) {
+		if (typeof nextButtons[z] === "object") {
+			nextButtons[z].addEventListener("click", nextButtonClick);
+		}
+	}
+};
+
 document.addEventListener("DOMContentLoaded", function (e) {
 	var swipe = require('swipe');
 	swipeel = document.querySelector('#container');
@@ -1188,9 +1201,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 	vid.addEventListener('ended', restartVideo, false);
 	vid.addEventListener("load", sizeAndPositionVideo);
 	vid.addEventListener("loadeddata", sizeAndPositionVideo);
-	document.querySelector('#goto-next-page').addEventListener("click", function () {
-		window.myswipe.cycle();
-	});
+	setNextButtonListners();
 	window.vid = vid;
 	window.myswipe = swipe(swipeel);
 	window.myswipe.on("showing", function (e) {

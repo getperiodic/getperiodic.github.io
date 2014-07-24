@@ -125,6 +125,9 @@ nav{
 .text-left{
 	text-align: left;
 }
+.text-center{
+	text-align: center;
+}
 #container {
   height: 100%;
   overflow: hidden;
@@ -153,6 +156,33 @@ nav{
 		opacity: 1;
 		transition: opacity 0.6s linear 0.2s;
 		
+		.goto-next-page{
+			padding: .8em 3.5em;
+			background: rgba(0,0,0,.8);
+			top: .4em;
+			position: relative;
+			text-transform: uppercase;
+			cursor: pointer;
+			color: #fff;
+			&:hover:before {
+				left: 75%;
+			}
+			&:before {
+				left: 85%;
+				top: 0;
+				content: "\2192";
+			}
+			&:before {
+				position: absolute;
+				height: 100%;
+				font-size: 125%;
+				line-height: 2.5em;
+				color: #fff;
+				-webkit-transition: all 0.3s;
+				-moz-transition: all 0.3s;
+				transition: all 0.3s;
+			}
+		}
 		&.lazyload{
 			opacity: 0;
 		}
@@ -184,32 +214,7 @@ nav{
 				h2{
 					font-weight: normal;
 				}
-				#goto-next-page{
-					padding: .8em 3.5em;
-					background: rgba(0,0,0,.8);
-					top: .4em;
-					position: relative;
-					text-transform: uppercase;
-					cursor: pointer;
-					&:hover:before {
-						left: 75%;
-					}
-					&:before {
-						left: 85%;
-						top: 0;
-						content: "\2192";
-					}
-					&:before {
-						position: absolute;
-						height: 100%;
-						font-size: 125%;
-						line-height: 2.5em;
-						color: #fff;
-						-webkit-transition: all 0.3s;
-						-moz-transition: all 0.3s;
-						transition: all 0.3s;
-					}
-				}
+				
 			}
 			#indexvideo,#indexnovideo{
 				transition: opacity 1.3s linear 0.1s;
@@ -262,12 +267,21 @@ nav{
 			-webkit-perspective: 200em;
 			-moz-perspective: 200em;
 			perspective: 200em;
+			.figure-container{
+				text-align: center;
+				.figure-wrapper{
+					margin: auto;
+					max-width: 50em;
+				}
+			}
 			figure.diagram{
 				position: relative;
+				left:10%;
+				min-height: 35em;
 				section{
 					display: block;
-					height:15em;
-					width: 19em;
+					height:25em;
+					width: 80%;
 					background: #333;
 					color: #fff;
 					position: absolute;
@@ -308,17 +322,17 @@ nav{
 					
 				}
 				&:hover{
-					min-height: 50em;
+					min-height: 80em;
 					section{
 						-webkit-transform: rotateX(0deg) rotateZ(-40deg) rotateY(0deg);
 						-moz-transform: rotateX(0deg) rotateZ(-40deg) rotateY(0deg);
 						-ms-transform: rotateX(0deg) rotateZ(-40deg) rotateY(0deg);
 						transform: rotateX(0deg) rotateZ(0deg) rotateY(0deg);
 						&.second{
-							top:17em;
+							top:27em;
 						}
 						&.third{
-							top:34em;
+							top:54em;
 						}
 					}
 				}
@@ -337,7 +351,7 @@ nav{
 	height: 100%;
 	width: 100%;
 	position: relative;
-min-height: 18em;
+	min-height: 18em;
 	-webkit-perspective: 600px;
 	-moz-perspective: 600px;
 	perspective: 600px;
@@ -500,7 +514,40 @@ min-height: 18em;
 					}
 				}
 			}
-
+			&#pane3{
+				.figure-container{
+					.figure-wrapper{
+					}
+				}
+				figure.diagram{
+					left:-10%;
+					cursor: pointer;
+					section{
+						display: block;
+						height:15em;
+						width: 120%;
+						
+						&.first{
+						}
+						&.second{
+						}
+						&.third{
+						}
+						
+					}
+					&:hover{
+						min-height: 40em;
+						section{
+							&.second{
+								top:17em;
+							}
+							&.third{
+								top:34em;
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }
