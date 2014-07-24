@@ -3,6 +3,7 @@ var classie = require("classie"),
 	swipeel,
 	t,
 	flippedPanels = false,
+	expandedLayers = false,
 	vid;
 
 var restartVideo = function () {
@@ -41,7 +42,31 @@ var flipPanels = function (argument) {
 			clearInterval(interval);
 		}
 		i++;
-	}, 800);
+	}, 500);
+};
+
+var expandLayers = function () {
+	expandedLayers = true;
+	var figurediagram = document.querySelector("#pane3 figure.diagram"),
+		t;
+
+	t = setTimeout(function () {
+		classie.removeClass(figurediagram, 'expanded');
+	}, 1000);
+};
+
+var setSectionListeners = function () {
+	var figuresections = document.querySelectorAll("#pane3 figure.diagram section"),
+		figureSectionClick = function (e) {
+			// console.log(e.target);
+			classie.toggleClass(e.target, 'detail');
+		};
+
+	for (var z in figuresections) {
+		if (typeof figuresections[z] === "object") {
+			figuresections[z].addEventListener("click", figureSectionClick);
+		}
+	}
 };
 
 var sizeAndPositionVideo = function () {
@@ -92,12 +117,16 @@ document.addEventListener("DOMContentLoaded", function (e) {
 	vid.addEventListener("load", sizeAndPositionVideo);
 	vid.addEventListener("loadeddata", sizeAndPositionVideo);
 	setNextButtonListners();
+	setSectionListeners();
 	window.vid = vid;
 	window.myswipe = swipe(swipeel);
 	window.myswipe.on("showing", function (e) {
 		clearTimeout(t);
 		if (e === 1 && flippedPanels === false) {
 			flipPanels();
+		}
+		if (e === 2 && expandedLayers === false) {
+			expandLayers();
 		}
 	});
 	// sizeAndPositionVideo();

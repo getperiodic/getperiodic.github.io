@@ -304,6 +304,18 @@ nav{
 					
 					-webkit-transition: all 1.5s ease-in-out;
 					transition: all 1.5s ease-in-out;
+					cursor: pointer;
+					h3{
+						font-size: 150%;
+						font-family: Open Sans, Arial, sans-serif;
+					}
+					img{
+						height: 18em;
+						// -webkit-filter: grayscale(100%) contrast(150%) brightness(40%);
+						// -moz-filter: grayscale(100%) contrast(150%) brightness(40%);
+						// -ms-filter: grayscale(100%) contrast(150%) brightness(40%);
+						// filter: grayscale(100%) contrast(150%) brightness(40%);
+					}
 
 					&.first{
 						z-index: 100;
@@ -319,9 +331,26 @@ nav{
 						z-index: 33;
 						background: black;
 					}
+					&.detail{
+						transform: rotateX(0deg) rotateZ(0deg) rotateY(0deg);
+						z-index: 150;
+					}
 					
 				}
 				&:hover{
+					min-height: 45em;
+					section{
+						&.first{
+						}
+						&.second{
+							top: 8em;
+						}
+						&.third{
+							top: 16em;
+						}
+					}
+				}
+				&.expanded{
 					min-height: 80em;
 					section{
 						-webkit-transform: rotateX(0deg) rotateZ(-40deg) rotateY(0deg);
@@ -520,22 +549,26 @@ nav{
 					}
 				}
 				figure.diagram{
-					left:-10%;
+					left:-5%;
 					cursor: pointer;
 					section{
 						display: block;
 						height:15em;
 						width: 120%;
-						
 						&.first{
 						}
 						&.second{
 						}
 						&.third{
 						}
-						
+						h3{
+							font-size: 100%;
+						}
+						img{
+							height: 9em;
+						}
 					}
-					&:hover{
+					&.expanded{
 						min-height: 40em;
 						section{
 							&.second{
