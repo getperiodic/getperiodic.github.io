@@ -2174,9 +2174,6 @@ var setNextButtonListners = function () {
 document.addEventListener("DOMContentLoaded", function (e) {
 	var swipe = require('swipe'),
 		Mousetrap = require("Mousetrap");
-	// keybinding = new Mousetrap();
-	console.log("Mousetrap", Mousetrap);
-	console.log("window.Mousetrap", window.Mousetrap);
 
 	swipeel = document.querySelector('#container');
 	vid = (isMobile()) ? document.querySelector('#indexnovideo') : document.querySelector('#indexvideo');
