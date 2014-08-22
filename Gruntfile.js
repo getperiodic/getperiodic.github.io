@@ -65,7 +65,7 @@ module.exports = function (grunt) {
 			development: {
 				options: {
 					// paths: ["src/assets/css"],
-					sourceMap: true,
+					sourceMap: false,
 					yuicompress: true,
 					compress: true
 				},
