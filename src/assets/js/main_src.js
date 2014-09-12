@@ -106,7 +106,6 @@ var setNextButtonListners = function () {
 document.addEventListener('DOMContentLoaded', function ( /* e */ ) {
 	var swipe = require('swipe'),
 		Mousetrap = require('Mousetrap');
-
 	swipeel = document.querySelector('#container');
 	vid = (isMobile()) ? document.querySelector('#indexnovideo') : document.querySelector('#indexvideo');
 	if (isMobile()) {
@@ -129,6 +128,8 @@ document.addEventListener('DOMContentLoaded', function ( /* e */ ) {
 	window.vid = vid;
 	window.myswipe = swipe(swipeel);
 	window.myswipe.on('showing', function (e) {
+		window.ga('send', 'event', 'myswipe', 'pageturn', 'swipe', e);
+
 		clearTimeout(t);
 		if (e === 1 && flippedPanels === false) {
 			flipPanels();

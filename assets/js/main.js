@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*global define:false */
 /**
  * Copyright 2013 Craig Campbell
@@ -2174,7 +2174,6 @@ var setNextButtonListners = function () {
 document.addEventListener('DOMContentLoaded', function ( /* e */ ) {
 	var swipe = require('swipe'),
 		Mousetrap = require('Mousetrap');
-
 	swipeel = document.querySelector('#container');
 	vid = (isMobile()) ? document.querySelector('#indexnovideo') : document.querySelector('#indexvideo');
 	if (isMobile()) {
@@ -2197,6 +2196,8 @@ document.addEventListener('DOMContentLoaded', function ( /* e */ ) {
 	window.vid = vid;
 	window.myswipe = swipe(swipeel);
 	window.myswipe.on('showing', function (e) {
+		window.ga('send', 'event', 'myswipe', 'pageturn', 'swipe', e);
+
 		clearTimeout(t);
 		if (e === 1 && flippedPanels === false) {
 			flipPanels();
